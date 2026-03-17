@@ -11,21 +11,23 @@
 
 <nav>
     <a class="brand" href="{% url 'forum:home' %}">🏡 Haus Neuolsach</a>
+
     <div class="nav-links">
         <a href="{% url 'forum:home' %}">Forum</a>
         <a href="{% url 'calendar_app:home' %}">Kalender</a>
         {% if user.is_staff %}
-            <a href="/admin/">Admin</a>
+            <a href="/admin/" class="admin-link">⚙ Admin</a>
         {% endif %}
     </div>
-    <div class="nav-user">
+
+    <div class="nav-right">
         {% if user.is_authenticated %}
-    <span class="nav-user">Hallo, <strong>{{ user.username }}</strong></span>
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" class="logout-btn">Logout</button>
-    </form>
-{% endif %}
+            <span class="nav-user">Hallo, <strong>{{ user.username }}</strong></span>
+            <form method="post" action="{% url 'logout' %}" style="display:inline">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        {% endif %}
     </div>
 </nav>
 
