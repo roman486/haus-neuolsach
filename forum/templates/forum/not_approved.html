@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Ausstehend{% endblock %}
+{% block content %}
+
+<div class="pending-box">
+    <h2>⏳ Noch nicht freigeschaltet</h2>
+    <p>Dein Account wartet auf die Freischaltung durch einen Admin.<br>
+    Bitte hab noch etwas Geduld!</p>
+    <a href="{% url 'logout' %}" class="btn btn-ghost">Logout</a>
+</div>
+
+{% endblock %}

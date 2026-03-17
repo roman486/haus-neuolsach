@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+{% block title %}{{ thread.title }}{% endblock %}
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'forum:home' %}">Forum</a>
+    <span>›</span>
+    <a href="{% url 'forum:thread_list' thread.category.id %}">{{ thread.category.name }}</a>
+    <span>›</span>
+    <span>{{ thread.title }}</span>
+</div>
+
+<h1>{{ thread.title }}</h1>
+
+{% for post in posts %}
+    <div class="post">
+        <div class="post-header">
+            <span class="author">{{ post.author.username }}</span>
+            <span class="date">{{ post.created_at|date:"d.m.Y H:i" }} Uhr</span>
+        </div>
+        <div class="content">{{ post.content }}</div>
+    </div>
+{% endfor %}
+
+<h2>Antworten</h2>
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <label for="content">Dein Beitrag</label>
+
+       <div class="emoji-bar">
+    <!-- Gesichter & Gefühle -->
+    <span class="emoji-btn" onclick="insertEmoji('😀')">😀</span>
+    <span class="emoji-btn" onclick="insertEmoji('😄')">😄</span>
+    <span class="emoji-btn" onclick="insertEmoji('😂')">😂</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤣')">🤣</span>
+    <span class="emoji-btn" onclick="insertEmoji('🥲')">🥲</span>
+    <span class="emoji-btn" onclick="insertEmoji('😊')">😊</span>
+    <span class="emoji-btn" onclick="insertEmoji('😇')">😇</span>
+    <span class="emoji-btn" onclick="insertEmoji('🥰')">🥰</span>
+    <span class="emoji-btn" onclick="insertEmoji('😍')">😍</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤩')">🤩</span>
+    <span class="emoji-btn" onclick="insertEmoji('😎')">😎</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤓')">🤓</span>
+    <span class="emoji-btn" onclick="insertEmoji('😏')">😏</span>
+    <span class="emoji-btn" onclick="insertEmoji('😅')">😅</span>
+    <span class="emoji-btn" onclick="insertEmoji('😬')">😬</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤔')">🤔</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤨')">🤨</span>
+    <span class="emoji-btn" onclick="insertEmoji('😐')">😐</span>
+    <span class="emoji-btn" onclick="insertEmoji('😑')">😑</span>
+    <span class="emoji-btn" onclick="insertEmoji('🙄')">🙄</span>
+    <span class="emoji-btn" onclick="insertEmoji('😤')">😤</span>
+    <span class="emoji-btn" onclick="insertEmoji('😠')">😠</span>
+    <span class="emoji-btn" onclick="insertEmoji('😡')">😡</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤯')">🤯</span>
+    <span class="emoji-btn" onclick="insertEmoji('😳')">😳</span>
+    <span class="emoji-btn" onclick="insertEmoji('🥺')">🥺</span>
+    <span class="emoji-btn" onclick="insertEmoji('😢')">😢</span>
+    <span class="emoji-btn" onclick="insertEmoji('😭')">😭</span>
+    <span class="emoji-btn" onclick="insertEmoji('😴')">😴</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤢')">🤢</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤮')">🤮</span>
+    <span class="emoji-btn" onclick="insertEmoji('🥳')">🥳</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤠')">🤠</span>
+    <span class="emoji-btn" onclick="insertEmoji('👻')">👻</span>
+    <span class="emoji-btn" onclick="insertEmoji('💀')">💀</span>
+
+    <span class="emoji-sep"></span>
+
+    <!-- Hände & Gesten -->
+    <span class="emoji-btn" onclick="insertEmoji('👍')">👍</span>
+    <span class="emoji-btn" onclick="insertEmoji('👎')">👎</span>
+    <span class="emoji-btn" onclick="insertEmoji('👏')">👏</span>
+    <span class="emoji-btn" onclick="insertEmoji('🙌')">🙌</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤝')">🤝</span>
+    <span class="emoji-btn" onclick="insertEmoji('🙏')">🙏</span>
+    <span class="emoji-btn" onclick="insertEmoji('✌️')">✌️</span>
+    <span class="emoji-btn" onclick="insertEmoji('🤞')">🤞</span>
+    <span class="emoji-btn" onclick="insertEmoji('💪')">💪</span>
+    <span class="emoji-btn" onclick="insertEmoji('👀')">👀</span>
+    <span class="emoji-btn" onclick="insertEmoji('👇')">👇</span>
+    <span class="emoji-btn" onclick="insertEmoji('☝️')">☝️</span>
+    <span class="emoji-btn" onclick="insertEmoji('🫡')">🫡</span>
+
+    <span class="emoji-sep"></span>
+
+    <!-- Herzen & Symbole -->
+    <span class="emoji-btn" onclick="insertEmoji('❤️')">❤️</span>
+    <span class="emoji-btn" onclick="insertEmoji('🧡')">🧡</span>
+    <span class="emoji-btn" onclick="insertEmoji('💛')">💛</span>
+    <span class="emoji-btn" onclick="insertEmoji('💚')">💚</span>
+    <span class="emoji-btn" onclick="insertEmoji('💙')">💙</span>
+    <span class="emoji-btn" onclick="insertEmoji('💜')">💜</span>
+    <span class="emoji-btn" onclick="insertEmoji('🖤')">🖤</span>
+    <span class="emoji-btn" onclick="insertEmoji('💔')">💔</span>
+    <span class="emoji-btn" onclick="insertEmoji('💯')">💯</span>
+    <span class="emoji-btn" onclick="insertEmoji('🔥')">🔥</span>
+    <span class="emoji-btn" onclick="insertEmoji('✅')">✅</span>
+    <span class="emoji-btn" onclick="insertEmoji('❌')">❌</span>
+    <span class="emoji-btn" onclick="insertEmoji('⚡')">⚡</span>
+    <span class="emoji-btn" onclick="insertEmoji('🎉')">🎉</span>
+    <span class="emoji-btn" onclick="insertEmoji('🎊')">🎊</span>
+    <span class="emoji-btn" onclick="insertEmoji('🏆')">🏆</span>
+    <span class="emoji-btn" onclick="insertEmoji('🎯')">🎯</span>
+    <span class="emoji-btn" onclick="insertEmoji('💡')">💡</span>
+    <span class="emoji-btn" onclick="insertEmoji('💬')">💬</span>
+    <span class="emoji-btn" onclick="insertEmoji('📌')">📌</span>
+    <span class="emoji-btn" onclick="insertEmoji('📅')">📅</span>
+    <span class="emoji-btn" onclick="insertEmoji('⏰')">⏰</span>
+    <span class="emoji-btn" onclick="insertEmoji('🔔')">🔔</span>
+    <span class="emoji-btn" onclick="insertEmoji('🔗')">🔗</span>
+    <span class="emoji-btn" onclick="insertEmoji('❓')">❓</span>
+    <span class="emoji-btn" onclick="insertEmoji('❗')">❗</span>
+    <span class="emoji-btn" onclick="insertEmoji('⭐')">⭐</span>
+    <span class="emoji-btn" onclick="insertEmoji('🌟')">🌟</span>
+    <span class="emoji-btn" onclick="insertEmoji('🍀')">🍀</span>
+    <span class="emoji-btn" onclick="insertEmoji('🌈')">🌈</span>
+    <span class="emoji-btn" onclick="insertEmoji('☀️')">☀️</span>
+    <span class="emoji-btn" onclick="insertEmoji('🌙')">🌙</span>
+</div>
+
+        <textarea id="content" name="content" placeholder="Schreib etwas..."></textarea>
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Absenden</button>
+        </div>
+    </form>
+</div>
+
+<style>
+.emoji-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    margin-top: 1.25rem;
+}
+
+.emoji-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.2rem 0.25rem;
+    border-radius: 4px;
+    transition: background 0.15s, transform 0.1s;
+    line-height: 1;
+}
+
+.emoji-btn:hover {
+    background: var(--accent-light);
+    transform: scale(1.25);
+}
+
+/* Textarea direkt an Emoji-Bar anschließen */
+.emoji-bar + textarea {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    margin-top: 0 !important;
+}
+
+.emoji-sep {
+    width: 1px;
+    background: var(--border);
+    margin: 0.1rem 0.3rem;
+    align-self: stretch;
+}
+
+</style>
+
+<script>
+function insertEmoji(emoji) {
+    const textarea = document.getElementById('content');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const text = textarea.value;
+    textarea.value = text.slice(0, start) + emoji + text.slice(end);
+    textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+    textarea.focus();
+}
+</script>
+
+{% endblock %}

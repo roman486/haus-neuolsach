@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Forum – Übersicht{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Kategorie</h1>
+</div>
+
+{% for category in categories %}
+    <div class="card">
+        <h3><a href="{% url 'forum:thread_list' category.id %}">{{ category.name }}</a></h3>
+        {% if category.description %}
+            <p class="description">{{ category.description }}</p>
+        {% endif %}
+    </div>
+{% empty %}
+    <div class="empty">
+        <p>Noch keine Kategorien vorhanden.<br>
+        Im <a href="/admin/" style="color:var(--accent2)">Admin-Panel</a> anlegen.</p>
+    </div>
+{% endfor %}
+
+{% endblock %}

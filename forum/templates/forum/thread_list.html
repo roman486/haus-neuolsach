@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ category.name }}{% endblock %}
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'forum:home' %}">Forum</a>
+    <span>›</span>
+    <span>{{ category.name }}</span>
+</div>
+
+<div class="page-header">
+    <h1>{{ category.name }}</h1>
+    <a href="{% url 'forum:thread_create' category.id %}" class="btn btn-primary">+ Neuer Thread</a>
+</div>
+
+{% for thread in threads %}
+    <div class="card">
+        <h3><a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a></h3>
+        <p class="meta">von {{ thread.author.username }} &nbsp;·&nbsp; {{ thread.created_at|date:"d.m.Y H:i" }} Uhr</p>
+    </div>
+{% empty %}
+    <div class="empty">Noch keine Threads. Sei der Erste!</div>
+{% endfor %}
+
+{% endblock %}

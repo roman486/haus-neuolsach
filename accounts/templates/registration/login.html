@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+<h1>Willkommen zurück</h1>
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p style="color:var(--danger); font-size:0.85rem; margin-top:0.3rem">{{ field.errors|join:", " }}</p>
+            {% endif %}
+        {% endfor %}
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Einloggen</button>
+        </div>
+    </form>
+    <hr>
+    <p style="font-size:0.9rem; color:var(--muted)">
+        Noch kein Konto? <a href="{% url 'accounts:register' %}" style="color:var(--accent2)">Hier registrieren</a>
+    </p>
+</div>
+
+{% endblock %}

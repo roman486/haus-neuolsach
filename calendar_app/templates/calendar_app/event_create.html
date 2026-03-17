@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Neuer Termin{% endblock %}
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'calendar_app:home' %}">Kalender</a>
+    <span>›</span>
+    <span>Neuer Termin</span>
+</div>
+
+<h1>Neuer Termin</h1>
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Titel</label>
+        <input type="text" id="title" name="title" required placeholder="Name des Termins">
+
+        <label for="description">Beschreibung</label>
+        <textarea id="description" name="description" placeholder="Details zum Termin..."></textarea>
+
+        <label for="location">Ort</label>
+        <input type="text" id="location" name="location" placeholder="Wo findet es statt?">
+
+        <label for="start_datetime">Beginn</label>
+        <input type="datetime-local" id="start_datetime" name="start_datetime" required>
+
+        <label for="end_datetime">Ende <em style="font-weight:300;text-transform:none">(optional)</em></label>
+        <input type="datetime-local" id="end_datetime" name="end_datetime">
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Termin erstellen</button>
+            <a href="{% url 'calendar_app:home' %}" class="btn btn-ghost">Abbrechen</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

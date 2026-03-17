@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}{{ event.title }}{% endblock %}
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'calendar_app:home' %}">Kalender</a>
+    <span>›</span>
+    <span>{{ event.title }}</span>
+</div>
+
+<h1>{{ event.title }}</h1>
+
+<div class="event-meta">
+    <div>
+        <span>Datum</span><br>
+        <strong>{{ event.start_datetime|date:"d.m.Y" }}</strong>
+    </div>
+    <div>
+        <span>Uhrzeit</span><br>
+        <strong>{{ event.start_datetime|date:"H:i" }} Uhr
+        {% if event.end_datetime %}– {{ event.end_datetime|date:"H:i" }} Uhr{% endif %}</strong>
+    </div>
+    {% if event.location %}
+    <div>
+        <span>Ort</span><br>
+        <strong>{{ event.location }}</strong>
+    </div>
+    {% endif %}
+    <div>
+        <span>Erstellt von</span><br>
+        <strong>{{ event.author.username }}</strong>
+    </div>
+</div>
+
+{% if event.description %}
+    <p style="margin-bottom:1.5rem; color:var(--muted)">{{ event.description }}</p>
+{% endif %}
+
+<hr>
+<h2>Deine Antwort</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="btn-row">
+        <button name="status" value="yes"
+            class="btn btn-yes {% if user_rsvp.status == 'yes' %}btn-active{% endif %}">
+            ✅ Zusage
+        </button>
+        <button name="status" value="maybe"
+            class="btn btn-maybe {% if user_rsvp.status == 'maybe' %}btn-active{% endif %}">
+            ❓ Vielleicht
+        </button>
+        <button name="status" value="no"
+            class="btn btn-no {% if user_rsvp.status == 'no' %}btn-active{% endif %}">
+            ❌ Absage
+        </button>
+    </div>
+</form>
+
+<h2>Teilnehmer ({{ rsvps.count }})</h2>
+{% if rsvps %}
+    <ul class="rsvp-list">
+        {% for rsvp in rsvps %}
+            <li>{{ rsvp.get_status_display }} &nbsp; {{ rsvp.user.username }}</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p style="color:var(--muted); font-size:0.9rem">Noch keine Antworten.</p>
+{% endif %}
+
+{% endblock %}

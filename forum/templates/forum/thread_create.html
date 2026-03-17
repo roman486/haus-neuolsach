@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Neuer Thread{% endblock %}
+{% block content %}
+
+<div class="breadcrumb">
+    <a href="{% url 'forum:home' %}">Forum</a>
+    <span>›</span>
+    <a href="{% url 'forum:thread_list' category.id %}">{{ category.name }}</a>
+    <span>›</span>
+    <span>Neuer Thread</span>
+</div>
+
+<h1>Neuer Thread</h1>
+<div class="form-card">
+    <form method="post">
+        {% csrf_token %}
+        <label for="title">Titel</label>
+        <input type="text" id="title" name="title" required placeholder="Worum geht es?">
+
+        <label for="content">Erster Beitrag</label>
+        <textarea id="content" name="content" required placeholder="Dein Eröffnungsbeitrag..."></textarea>
+
+        <div class="btn-row">
+            <button type="submit" class="btn btn-primary">Thread erstellen</button>
+            <a href="{% url 'forum:thread_list' category.id %}" class="btn btn-ghost">Abbrechen</a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
