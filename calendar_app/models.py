@@ -6,8 +6,8 @@ class Event(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
     location = models.CharField(max_length=200, blank=True)
-    start_datetime = models.DateTimeField()
-    end_datetime = models.DateTimeField(null=True, blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_events')
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -15,7 +15,7 @@ class Event(models.Model):
         return self.title
 
     class Meta:
-        ordering = ['start_datetime']
+        ordering = ['start_date']
 
 
 class RSVP(models.Model):
@@ -29,7 +29,7 @@ class RSVP(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES)
 
     class Meta:
-        unique_together = ('event', 'user')  # Jeder User nur 1x pro Event
+        unique_together = ('event', 'user')
 
     def __str__(self):
         return f'{self.user.username} – {self.get_status_display()} ({self.event.title})'

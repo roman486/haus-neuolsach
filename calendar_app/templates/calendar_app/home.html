@@ -12,7 +12,8 @@
     <div class="card">
         <h3><a href="{% url 'calendar_app:event_detail' event.id %}">{{ event.title }}</a></h3>
         <p class="meta">
-            📅 {{ event.start_datetime|date:"d.m.Y H:i" }} Uhr
+            📅 {{ event.start_date|date:"d.m.Y" }}
+            {% if event.end_date %}&nbsp;·&nbsp; bis {{ event.end_date|date:"d.m.Y" }}{% endif %}
             {% if event.location %}&nbsp;·&nbsp; 📍 {{ event.location }}{% endif %}
             &nbsp;·&nbsp; von {{ event.author.username }}
         </p>
@@ -26,7 +27,7 @@
     {% for event in past_events %}
         <div class="card" style="opacity:0.5">
             <h3><a href="{% url 'calendar_app:event_detail' event.id %}">{{ event.title }}</a></h3>
-            <p class="meta">📅 {{ event.start_datetime|date:"d.m.Y" }}</p>
+            <p class="meta">📅 {{ event.start_date|date:"d.m.Y" }}</p>
         </div>
     {% endfor %}
 {% endif %}

@@ -12,22 +12,18 @@
 
 <div class="event-meta">
     <div>
-        <span>Datum</span><br>
-        <strong>{{ event.start_datetime|date:"d.m.Y" }}</strong>
-    </div>
-    <div>
-        <span>Uhrzeit</span><br>
-        <strong>{{ event.start_datetime|date:"H:i" }} Uhr
-        {% if event.end_datetime %}– {{ event.end_datetime|date:"H:i" }} Uhr{% endif %}</strong>
+        <span>Datum</span>
+        <strong>{{ event.start_date|date:"d.m.Y" }}
+        {% if event.end_date %} – {{ event.end_date|date:"d.m.Y" }}{% endif %}</strong>
     </div>
     {% if event.location %}
     <div>
-        <span>Ort</span><br>
+        <span>Ort</span>
         <strong>{{ event.location }}</strong>
     </div>
     {% endif %}
     <div>
-        <span>Erstellt von</span><br>
+        <span>Erstellt von</span>
         <strong>{{ event.author.username }}</strong>
     </div>
 </div>

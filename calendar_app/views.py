@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.utils import timezone
+from datetime import date
 from .models import Event, RSVP
 from accounts.models import Profile
 
@@ -18,8 +18,8 @@ def is_approved(user):
 def calendar_home(request):
     if not is_approved(request.user):
         return render(request, 'forum/not_approved.html')
-    events = Event.objects.filter(start_datetime__gte=timezone.now()).order_by('start_datetime')
-    past_events = Event.objects.filter(start_datetime__lt=timezone.now()).order_by('-start_datetime')[:5]
+    events = Event.objects.filter(start_date__gte=date.today()).order_by('start_date')
+    past_events = Event.objects.filter(start_date__lt=date.today()).order_by('-start_date')[:5]
     return render(request, 'calendar_app/home.html', {
         'events': events,
         'past_events': past_events,
@@ -60,16 +60,16 @@ def event_create(request):
         title = request.POST.get('title')
         description = request.POST.get('description')
         location = request.POST.get('location')
-        start_datetime = request.POST.get('start_datetime')
-        end_datetime = request.POST.get('end_datetime') or None
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date') or None
 
-        if title and start_datetime:
+        if title and start_date:
             Event.objects.create(
                 title=title,
                 description=description,
                 location=location,
-                start_datetime=start_datetime,
-                end_datetime=end_datetime,
+                start_date=start_date,
+                end_date=end_date,
                 author=request.user,
             )
             return redirect('calendar_app:home')
