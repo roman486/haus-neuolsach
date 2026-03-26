@@ -20,7 +20,7 @@
         {% endif %}
     </div>
 
-    <div class="nav-right">
+    <!--<div class="nav-right">
         {% if user.is_authenticated %}
             <span class="nav-user">Hallo, <strong>{% if request.user.profile.first_name %}
         {{ request.user.profile.first_name }}
@@ -32,7 +32,35 @@
                 <button type="submit" class="logout-btn">Logout</button>
             </form>
         {% endif %}
-    </div>
+    </div>-->
+
+
+
+    <div class="nav-right">
+    {% if user.is_authenticated %}
+        <span class="nav-user">
+            Hallo, <strong>
+            {% if user.first_name %}
+                {{ user.first_name }}
+            {% else %}
+                {{ user.username }}
+            {% endif %}
+            </strong>
+            
+        </span>
+        <form method="post" action="{% url 'logout' %}" style="display:inline">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    {% endif %}
+</div>
+
+
+
+
+
+
+
 </nav>
 
 <div class="container">
