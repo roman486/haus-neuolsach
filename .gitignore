@@ -25,4 +25,4 @@ staticfiles/
 Thumbs.db
 
 # Environment variables
-.env
+.envdb.sqlite3
