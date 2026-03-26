@@ -12,11 +12,22 @@
     <div class="card">
         <h3><a href="{% url 'calendar_app:event_detail' event.id %}">{{ event.title }}</a></h3>
         <p class="meta">
-            📅 {{ event.start_date|date:"d.m.Y" }}
-            {% if event.end_date %}&nbsp;·&nbsp; bis {{ event.end_date|date:"d.m.Y" }}{% endif %}
-            {% if event.location %}&nbsp;·&nbsp; 📍 {{ event.location }}{% endif %}
-            &nbsp;·&nbsp; von {{ event.author.profile.display_name }}
-        </p>
+    📅 {{ event.start_date|date:"d.m.Y" }}
+    {% if event.end_date %}&nbsp;·&nbsp; bis {{ event.end_date|date:"d.m.Y" }}{% endif %}
+    {% if event.location %}&nbsp;·&nbsp; 📍 {{ event.location }}{% endif %}
+    &nbsp;·&nbsp; von 
+    <strong>
+        {% if event.author.first_name %}
+            {{ event.author.first_name }}
+        {% else %}
+            {{ event.author.username }}
+        {% endif %}
+    </strong>
+    {% if event.author.profile %}
+        <span class="rank">({{ event.author.profile.rank }})</span>
+    {% endif %}
+</p>
+
     </div>
 {% empty %}
     <div class="empty">Keine kommenden Termine.</div>
