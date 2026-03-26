@@ -23,10 +23,19 @@
     </div>
     {% endif %}
     <div>
-        <span>Erstellt von</span>
-        <strong>{{ event.author.profile.display_name }}</strong>
-    </div>
+    <span>Erstellt von</span>
+    <strong>
+        {% if event.author.first_name %}
+            {{ event.author.first_name }}
+        {% else %}
+            {{ event.author.username }}
+        {% endif %}
+        {% if event.author.profile %}
+            <span class="rank">({{ event.author.profile.rank }})</span>
+        {% endif %}
+    </strong>
 </div>
+
 
 {% if event.description %}
     <p style="margin-bottom:1.5rem; color:var(--muted)">{{ event.description }}</p>
@@ -56,7 +65,20 @@
 {% if rsvps %}
     <ul class="rsvp-list">
         {% for rsvp in rsvps %}
-            <li>{{ rsvp.get_status_display }} &nbsp; {{ rsvp.user.username }}</li>
+            <li>
+    {{ rsvp.get_status_display }} &nbsp; 
+    <strong>
+        {% if rsvp.user.first_name %}
+            {{ rsvp.user.first_name }}
+        {% else %}
+            {{ rsvp.user.username }}
+        {% endif %}
+    </strong>
+    {% if rsvp.user.profile %}
+        <span class="rank">({{ rsvp.user.profile.rank }})</span>
+    {% endif %}
+</li>
+
         {% endfor %}
     </ul>
 {% else %}
