@@ -26,9 +26,7 @@
         {% endif %}
     </strong>
     
-    {% if thread.author.profile %}
-        <span class="rank">({{ thread.author.profile.rank }})</span>
-    {% endif %}
+    
     
     &nbsp;·&nbsp; {{ thread.created_at|date:"d.m.Y H:i" }} Uhr
 </p>

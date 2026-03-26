@@ -12,7 +12,7 @@ def get_rank(post_count):
         return '🧑 Dåmpfplauderer'
     elif post_count >= 20:
         return '🧒 Plaudatåschn'
-    elif post_count >= 5:
+    elif post_count >= 10:
         return '👶 Springgingale'
     else:
         return '🍼 Rotzpipm'
