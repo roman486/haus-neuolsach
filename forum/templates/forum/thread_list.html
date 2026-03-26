@@ -16,7 +16,7 @@
 {% for thread in threads %}
     <div class="card">
         <h3><a href="{% url 'forum:thread_detail' thread.id %}">{{ thread.title }}</a></h3>
-        <p class="meta">von {{ thread.author.username }} &nbsp;·&nbsp; {{ thread.created_at|date:"d.m.Y H:i" }} Uhr</p>
+        <p class="meta">von {{ thread.author.profile.display_name }} &nbsp;·&nbsp; {{ thread.created_at|date:"d.m.Y H:i" }} Uhr</p>
     </div>
 {% empty %}
     <div class="empty">Noch keine Threads. Sei der Erste!</div>

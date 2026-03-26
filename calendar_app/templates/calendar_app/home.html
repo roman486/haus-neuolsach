@@ -15,7 +15,7 @@
             📅 {{ event.start_date|date:"d.m.Y" }}
             {% if event.end_date %}&nbsp;·&nbsp; bis {{ event.end_date|date:"d.m.Y" }}{% endif %}
             {% if event.location %}&nbsp;·&nbsp; 📍 {{ event.location }}{% endif %}
-            &nbsp;·&nbsp; von {{ event.author.username }}
+            &nbsp;·&nbsp; von {{ event.author.profile.display_name }}
         </p>
     </div>
 {% empty %}

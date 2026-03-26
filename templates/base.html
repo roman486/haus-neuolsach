@@ -22,7 +22,11 @@
 
     <div class="nav-right">
         {% if user.is_authenticated %}
-            <span class="nav-user">Hallo, <strong>{{ user.username }}</strong></span>
+            <span class="nav-user">Hallo, <strong>{% if request.user.profile.first_name %}
+        {{ request.user.profile.first_name }}
+    {% else %}
+        {{ request.user.username }}
+    {% endif %}</strong></span>
             <form method="post" action="{% url 'logout' %}" style="display:inline">
                 {% csrf_token %}
                 <button type="submit" class="logout-btn">Logout</button>

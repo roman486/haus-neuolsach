@@ -544,3 +544,16 @@ hr {
 
     .emoji-btn { font-size: 1rem; }
 }
+
+/* ── RANG ── */
+.author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.rank {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-weight: 400;
+}
