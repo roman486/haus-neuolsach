@@ -14,13 +14,14 @@ def is_approved(user):
         return False
 
 
+
 @login_required
 def forum_home(request):
     if not is_approved(request.user):
         return render(request, 'forum/not_approved.html')
     categories = Category.objects.all()
     
-    # Anzahl Threads und Posts pro Kategorie
+    # Anzahl Threads und Posts pro Kategorien
     category_data = []
     for category in categories:
         thread_count = category.threads.count()
