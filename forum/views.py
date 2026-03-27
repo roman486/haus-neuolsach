@@ -19,7 +19,19 @@ def forum_home(request):
     if not is_approved(request.user):
         return render(request, 'forum/not_approved.html')
     categories = Category.objects.all()
-    return render(request, 'forum/home.html', {'categories': categories})
+    
+    # Anzahl Threads und Posts pro Kategorie
+    category_data = []
+    for category in categories:
+        thread_count = category.threads.count()
+        post_count = sum(thread.posts.count() for thread in category.threads.all())
+        category_data.append({
+            'category': category,
+            'thread_count': thread_count,
+            'post_count': post_count,
+        })  
+      
+    return render(request, 'forum/home.html', {'category_data': category_data})
 
 
 @login_required
