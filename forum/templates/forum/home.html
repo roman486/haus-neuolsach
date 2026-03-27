@@ -3,15 +3,20 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>Kategorie</h1>
+    <h1>Forum</h1>
 </div>
 
-{% for category in categories %}
+{% for item in category_data %}
     <div class="card">
-        <h3><a href="{% url 'forum:thread_list' category.id %}">{{ category.name }}</a></h3>
-        {% if category.description %}
-            <p class="description">{{ category.description }}</p>
+        <h3><a href="{% url 'forum:thread_list' item.category.id %}">{{ item.category.name }}</a></h3>
+        {% if item.category.description %}
+            <p class="description">{{ item.category.description }}</p>
         {% endif %}
+        <p class="meta">
+            💬 {{ item.thread_count }} Thread{{ item.thread_count|pluralize:",s" }}
+            &nbsp;·&nbsp;
+            📝 {{ item.post_count }} Post{{ item.post_count|pluralize:",s" }}
+        </p>
     </div>
 {% empty %}
     <div class="empty">
